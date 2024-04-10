@@ -1,0 +1,45 @@
+<template>
+    <lightning-card title="Appointment Search Form">
+        <div class="center">
+        <div class="slds-grid slds-gutters slds-p-around_medium">
+            <div class="slds-col">
+                <lightning-input label="Examinee Name" value={examineeName} onchange={handleExamineeNameChange}></lightning-input>
+                <lightning-input label="Case Reference Number" value={caseReference} onchange={handleCaseReferenceChange}></lightning-input>
+            </div>
+            <div class="slds-col">
+                <lightning-input label="Appointment Start Date" type="date" value={date} onchange={handleDateChange}></lightning-input>
+                <lightning-input label="Expert Name" value={specialist} onchange={handleSpecialistChange}></lightning-input>
+            </div>
+        </div>
+        <div class="slds-p-top_medium slds-p-around_medium">
+            <lightning-button label="Search" onclick={handleSearch}></lightning-button>
+        </div>
+    </div>
+    </lightning-card>
+
+    <template if:true={searchResults}>
+        <lightning-card title="Search Results">
+            <div class="slds-p-around_medium">
+                <lightning-datatable
+                    key-field="id"
+                    data={searchResults}
+                    columns={columns}
+                    hide-checkbox-column="true">
+                </lightning-datatable>
+            </div>
+        </lightning-card>
+    </template>
+    <template if:false={searchResults}>
+        <lightning-card title="Search Results">
+            <div class="slds-p-around_medium">
+               No Record Found
+            </div>
+        </lightning-card>
+    </template>
+    <template lwc:if={isDataLoaded}>
+        <lightning-spinner variant="brand"
+            alternative-text="Loading"
+            size="large">
+        </lightning-spinner>
+    </template>
+</template>

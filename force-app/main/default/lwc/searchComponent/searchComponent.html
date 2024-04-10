@@ -1,0 +1,16 @@
+<template>
+    <lightning-tabset variant="scoped">
+       
+            <lightning-tab label="Expert" value="Expert" onactive={handleActive}>
+                <template if:true={Expert}>
+                    <c-expert-search-component></c-expert-search-component>
+                </template>
+            </lightning-tab>
+            <lightning-tab label="Appointment" value="Appointment" onactive={handleActive}>
+                <template if:true={Appointment}>
+                    <c-appointment-search-component></c-appointment-search-component>
+                </template>
+            </lightning-tab>
+    </lightning-tabset>
+   
+</template>
