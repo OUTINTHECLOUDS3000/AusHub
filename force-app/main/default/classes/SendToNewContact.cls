@@ -1,14 +1,12 @@
 public class SendToNewContact {
     
     public static Id createAndSendEnvelope(Id mySourceId) {
-        dfsle.Envelope myEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(
-            new dfsle.Entity(mySourceId)
-        );
-        
-        
         Appointment__c myAppointment = [SELECT Name, Case_Origin__c, Case_Origin__r.Examinee_Name__c , Case_Origin__r.Examinee_Email__c, Examinee_Email__c FROM Appointment__c WHERE Id = :mySourceId LIMIT 1];
         Case myCase = [SELECT ID, Examinee_Name__c,Examinee_Email__c FROM CASE WHERE ID =: myAppointment.Case_Origin__c LIMIT 1];
-       
+        dfsle.Envelope myEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(
+            new dfsle.Entity(myCase.Id)
+        );
+        
         dfsle.Recipient myRecipient = dfsle.Recipient.fromSource( 
             myCase.Examinee_Name__c,
             myCase.Examinee_Email__c,
